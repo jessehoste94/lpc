@@ -13,7 +13,7 @@ brand = st.text_input("Merknaam", value="PAXON")
 client_id = "a4a03e03938a6bde6b0893fc495c4eef"
 access_token = st.text_input("Access Token (Ask Jesse)", type="password")
 extra_patterns = st.text_area("Extra patronen (optioneel, 1 per lijn)", 
-    placeholder="bv.\npa??on\nwordMarkSpecification.verbalElement==*xon")
+    placeholder="pa??on\np?x?n")
 
 # Optionele filters
 st.markdown("**Optionele filters**")
@@ -154,7 +154,7 @@ if st.button("Start analyse") and brand and access_token and client_id:
 
     valid_results = [entry for entry in pattern_counts if isinstance(entry["match_count"], int)]
     result_df = pd.DataFrame(valid_results).sort_values(by="match_count", ascending=False)
-    result_df['Pattern'] = result_df['pattern'].str.replace("wordMarkSpecification.verbalElement==", "")
+    result_df['Pattern'] = result_df['pattern'].str.replace("wordMarkSpecification.verbalElement==", "").str.replace('"', '')
     del result_df['pattern']
     result_df = result_df[['Pattern', 'match_count']]
     st.subheader("Aantal geregistreerde merken per patroon")
