@@ -144,16 +144,19 @@ if st.button("Start analyse") and brand and access_token and client_id:
         for pattern, length_filter in base_patterns:
             all_data, _ = fetch_all_data(pattern, HEADERS, expected_length=length_filter)
             if all_data is None:
-                pattern_counts.append({"pattern": pattern.replace("wordMarkSpecification.verbalElement==", ""), "match_count": float('-inf')})
+                pattern_counts.append({"pattern": pattern, "match_count": float('-inf')})
                 continue
             flattened = [flatten_trademark(item) for item in all_data]
             df_flat = pd.DataFrame(flattened)
             count = len(df_flat)
             detailed_dfs.append((pattern, df_flat))
-            pattern_counts.append({"pattern": pattern.replace("wordMarkSpecification.verbalElement==", ""), "match_count": count})
+            pattern_counts.append({"pattern": pattern, "match_count": count})
 
     valid_results = [entry for entry in pattern_counts if isinstance(entry["match_count"], int)]
     result_df = pd.DataFrame(valid_results).sort_values(by="match_count", ascending=False)
+    result_df['Pattern'] = result_df['pattern'].str.replace("wordMarkSpecification.verbalElement==", "")
+    del result_df['pattern']
+    result_df = result_df[['Pattern', 'match_count']]
     st.subheader("Aantal geregistreerde merken per patroon")
     st.dataframe(result_df, use_container_width=True)
 
