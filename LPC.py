@@ -170,7 +170,7 @@ if st.button("Start analyse") and brand and access_token and client_id:
     st.markdown("---")
     for pattern, df_view in detailed_dfs:
         if not df_view.empty:
-            with st.expander(f"Bekijk resultaten voor patroon: {pattern.str.replace("wordMarkSpecification.verbalElement==", "").replace('"', '')} ({len(df_view)})"):
+            with st.expander(f"Bekijk resultaten voor patroon: {pattern.replace("wordMarkSpecification.verbalElement==", "").replace('"', '')} ({len(df_view)})"):
                 st.dataframe(df_view, use_container_width=True)
                 excel_data = get_excel_download_link(df_view)
                 st.download_button(
