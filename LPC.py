@@ -81,7 +81,7 @@ def fetch_all_data(query, headers, expected_length=None):
         if extra_conditions:
             full_query += " and " + " and ".join(extra_conditions)
 
-        #st.write(f"🔎 Query uitgevoerd: `{full_query}`")
+        st.write(f"🔎 Query uitgevoerd: `{full_query}`")
 
         params = {
             "query": full_query,
