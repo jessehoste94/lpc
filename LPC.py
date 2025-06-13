@@ -160,7 +160,8 @@ if st.button("Start analyse") and brand and access_token and client_id:
 
     if not result_df.empty:
         fig, ax = plt.subplots(figsize=(12, 5))
-        sns.barplot(data=result_df, x="match_count", y="pattern", ax=ax)
+        result_df['Pattern'] = result_df['pattern'].str.replace("wordMarkSpecification.verbalElement==PAX*", "")
+        sns.barplot(data=result_df, x="match_count", y="Pattern", ax=ax)
         ax.set_xlabel("Aantal resultaten")
         ax.set_ylabel("Zoekpatroon")
         st.pyplot(fig)
