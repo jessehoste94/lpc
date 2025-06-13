@@ -10,7 +10,7 @@ st.title("Trademark Pattern Checker (EUIPO Sandbox)")
 
 # Inputvelden
 brand = st.text_input("Merknaam", value="PAXON")
-client_id = st.text_input("Client ID (Ask Jesse)", type="password")
+client_id = "a4a03e03938a6bde6b0893fc495c4eef"
 access_token = st.text_input("Access Token (Ask Jesse)", type="password")
 extra_patterns = st.text_area("Extra patronen (optioneel, 1 per lijn)", 
     placeholder="bv.\npa??on\nwordMarkSpecification.verbalElement==*xon")
